@@ -6,6 +6,7 @@ MX Player - HTML5 Games Integration
 
 The MXPlayer App opens the game in a web-view. These games are opened by the App in 2 ways:
 
+
 * Uploading a zip file
 * Directly by a url.
 
