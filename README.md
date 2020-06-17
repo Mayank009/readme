@@ -6,7 +6,6 @@ MX Player - HTML5 Games Integration
 
 The MXPlayer App opens the game in a web-view. These games are opened by the App in 2 ways:
 
-
 * Uploading a zip file
 * Directly by a url.
 
@@ -19,8 +18,8 @@ When the web-view opens a game, it passes an object `gameManager` to the window 
 ```
 window.gameManager = {
     onGameInit: function() {},
-    onGameSettings: function() {},
     onGameStart: function() {},
+    onGameSettings: function() {},
     onTrack: function() {},
     onError: function() {},
     onCheckRewardedVideoAds: function() {},
@@ -32,7 +31,6 @@ window.gameManager = {
 Let’s go through each of these methods:
 
 ### gameManager.onGameInit()
-
 
 This function returns few common parameters used across all games like:
 roomId, userId, gameId, highestScore, gameMode, isFirstOpen
@@ -46,5 +44,36 @@ try {
     }
 } catch (e) {
     console.log("Error Parsing Config")
+}
+```
+
+Note: The data received is a stringified JSON
+
+Currently the returned object has the following fields:
+
+```
+var config = {
+   userId: "1",
+   gameId: "2",
+   roomId: "3",
+   highestScore: 90,
+   lastLevel: 0,
+   gameMode: "score", // "score" or "win"
+   isFirstOpen: true, // true or false
+   roomType: "free_room" // "free_room" or "priced_room"
+}
+```
+
+### gameManager.onGameStart()
+
+This function has to be called by the web-view when the game is ready and set to play, to notify the App that the game is ready.
+
+```
+if (typeof gameManager !== 'undefined') {
+    try {
+        gameManager.onGameStart()
+    } catch (e) {
+        gameManager.onError(e.stack.toString())
+    }
 }
 ```
