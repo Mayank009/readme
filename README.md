@@ -77,3 +77,38 @@ if (typeof gameManager !== 'undefined') {
     }
 }
 ```
+
+### gameManager.getGameSettings()
+
+This function is called to get configurable parameters for the game. Many difficulty, powerup, probability etc can be configured to be received through this function. MX Player CMS takes these inputs and passes them onto the game through this function. This way, no code changes are required in the game parameters are to be altered.
+
+```
+var defaultConfig = {
+    reviveScore: 0,
+    reviveEnabled: true,
+    reviveLives: 1,
+    reviveAdExistsDefault: true,
+    autoAd: true,
+    noDieScore: 10
+}
+
+var loadConfig = function () {
+    if (typeof gameManager !== 'undefined') {
+        try {
+            var gameSettingString = gameManager.getGameSettings()
+            var config = JSON.parse(gameSettingString)
+            return config
+        } catch (e) {
+            return defaultConfig
+        }
+    } else {
+        return defaultConfig
+    }
+}
+
+var config = loadConfig()
+
+module.exports = config
+```
+
+Note: The data received is a stringified JSON
