@@ -4,15 +4,16 @@ MX Player - HTML5 Games Integration
 
 ### Integration Steps:
 
-The MXPlayer App opens the game in a webview. These games are opened by the App in 2 ways: 
+The MXPlayer App opens the game in a web-view. These games are opened by the App in 2 ways:
+
 * Uploading a zip file
 * Directly by a url.
 
 In a zip file based approach, the game is downloaded only when the user clicks on a particular game inside the `Games` tab in the app. Also whenever a new version of a game is uploaded, the app re-downloads the game to get the latest build.
 
-A Script has to be included in the game initialization which basically adds an object `cc` in the window scope. This helps in communication from app to game. Please contact us to get the script.
+A Script has to be included in the game initialisation which basically adds an object `cc` in the window scope. This helps in communication from app to game. Please contact us to get the script.
 
-When the webview opens a game, it passes an object `gameManager` to the window scope which serves the communication from the game to the app. The object format is:
+When the web-view opens a game, it passes an object `gameManager` to the window scope which serves the communication from the game to the app. The object format is:
 
 ```
 window.gameManager = {
