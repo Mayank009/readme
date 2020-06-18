@@ -1,6 +1,6 @@
 ## MX Player Games Documentation
 
-MX Player - HTML5 Games Integration
+### MX Player - HTML5 Games Integration
 
 ### Integration Steps:
 
@@ -47,7 +47,7 @@ try {
 }
 ```
 
-Note: The data received is a stringified JSON
+**Note**: The data received is a stringified JSON
 
 Currently the returned object has the following fields:
 
@@ -111,4 +111,183 @@ var config = loadConfig()
 module.exports = config
 ```
 
-Note: The data received is a stringified JSON
+**Note**: The data received is a stringified JSON
+
+### gameManager.onTrack()
+
+This function is used when the game wants to track events in the game.
+
+```
+if (typeof gameManager !== 'undefined') {
+    try {
+        var obj = {
+            score: score,
+            timestamp: timestamp
+        }
+        var data = JSON.stringify(obj)
+        gameManager.onTrack('gamePause', data)
+    } catch (e) {
+        gameManager.onError(e.stack.toString())
+    }
+}
+```
+
+**Note**: The data passed for tracking has to be a stringified JSON
+(Please contact us to get the list of events currently tracked)
+
+### gameManager.onError()
+
+This function is used to send errors that might occur in the game. The webview is automatically closed by the App when this method is called. 
+
+The game developers can contact us to get the error logs.
+
+```
+if (typeof gameManager !== 'undefined') {
+    try {
+        // Game Code
+    } catch (e) {
+        gameManager.onError(e.stack.toString())
+    }
+}
+```
+
+**Note**: The parameter passed should be a string
+
+### gameManager.onCheckRewardedVideoAds()
+
+This is a method which has to be called by the game whenever it wants to check if an ad can be shown or not. This method checks if an ad can be shown by checking many factors like ad unit, internet connectivity etc.
+
+
+```
+if (typeof gameManager !== 'undefined' && 
+    typeof gameManager.onCheckRewardedVideoAds === 'function'
+) {
+    try {
+        gameManager.onCheckRewardedVideoAd('rewardAdsExist')
+    } catch (e) {
+        gameManager.onError(e.stack.toString())
+    }
+}
+```
+
+The parameter that is passed to this function is a String. 
+Since this method is asynchronous, once the App computes if an ad can be shown it emits an event.
+
+```
+cc.game.emit('rewardAdsExist')
+```
+**Note**: This is not to be implemented in game code
+
+**Note**: The same event name what was passed to `onCheckRewardedAds` method
+
+The game should be listening to this event by the following syntax
+
+```
+cc.game.on('rewardAdsExist', this.onRewardedAdsCheck)
+```
+
+The 2nd parameter provided in this function should be a function and will be called when the App emits the event.
+
+Inside the method the implementation would look something like this:
+
+```
+onRewardedAdsCheck: function (result) {
+    if (result.statyus === 0) {
+        // Ad can be shown
+    } else {
+        // Ad cannot be shown
+    }
+}
+```
+
+**Tips**: Since gameManager.onCheckRewardedAds cannot be tested locally, for testing purposes, from your web console type:
+
+```
+cc.game.emit('rewardAdsExist', {status: 0}) // To test flow: ad exists
+
+cc.game.emit('rewardAdsExist', {status: 1}) // To test flow: ad does not exists
+```
+
+This will call the game method (onRewardedAdsCheck in the above example). 
+
+### gameManager.onShowRewardedVideoAds()
+
+This method starts the video ad on top of the game. The game should pause at this time and all sound effects should be stopped for the ad to play
+
+
+```
+if (typeof gameManager !== 'undefined' && 
+    typeof gameManager.onShowRewardedVideoAds === 'function'
+) {
+    try {
+        gameManager.onShowRewardedVideoAds('rewardLife')
+    } catch (e) {
+        gameManager.onError(e.stack.toString())
+    }
+}
+```
+
+The parameter that is passed to this function is a String. 
+Since this method is asynchronous, once the ad is played or the ad is quitted (by clicking on close icon on the ad screen), the App emits an event to the game
+
+```
+cc.game.emit('onAdPlayed')
+```
+
+**Note**: This is not to be implemented in game code
+
+**Note**: The same event name what was passed to `onShowRewardedVideoAds` method
+
+The game should be listening to this event by the following syntax
+
+```
+cc.game.on('onAdPlayed', this.adPlayed)
+```
+
+The 2nd parameter provided in this function should be a function and will be called when the App emits the event.
+
+Inside the method the implementation would look something like this:
+
+```
+adPlayed: function (result) {
+    if (result.statyus === 0) {
+        // Ad can be shown
+    } else {
+        // Ad cannot be shown
+    }
+}
+```
+
+**Tips**: Since gameManager.onShowRewardedVideoAds cannot be tested locally, for testing purposes, from your web console type:
+
+```
+cc.game.emit('onAdPlayed', {status: 0}) // To test flow: ad exists
+
+cc.game.emit('onAdPlayed', {status: 1}) // To test flow: ad does not exists
+```
+
+This will call the game method (onAdPlayed in the above example).
+
+
+### gameManager.onGameOver()
+
+This function is used when the game is over and needs to be closed. The game needs to send parameters like score, highScore etc.
+
+```
+if (typeof gameManager !== 'undefined') {
+    var obj = {
+        gameId: String(cc.sys.localStorage.getItem('JuegoJumpgameId')),
+        roomId: String(cc.sys.localStorage.getItem('JuegoJumproomId')),
+        userId: String(cc.sys.localStorage.getItem('JuegoJumpgameId')),
+        score: String(this.totalScore),
+        highScore: String(highScore),
+        info: encryption.getInfo(this.totalScore, this.gameplayTimeInSecond, this.currentRevives)
+    }
+    try {
+        var score = JSON.stringify(obj)
+        gameManager.onGameOver(score)
+    } catch (e) {
+        gameManager.onError(e.stack.toString())
+    }
+}
+```
