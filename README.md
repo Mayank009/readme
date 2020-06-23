@@ -279,7 +279,7 @@ if (typeof gameManager !== 'undefined') {
         gameId: String(cc.sys.localStorage.getItem('JuegoJumpgameId')),
         roomId: String(cc.sys.localStorage.getItem('JuegoJumproomId')),
         userId: String(cc.sys.localStorage.getItem('JuegoJumpgameId')),
-        score: this.totalScore,
+        score: this.score,
         highScore: highScore,
         info: encryption.getInfo(this.totalScore, this.gameplayTimeInSecond, reviveCount)
     }
