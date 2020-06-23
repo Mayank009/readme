@@ -212,7 +212,7 @@ This will call the game method (onRewardedAdsCheck in the above example).
 
 ### gameManager.onShowRewardedVideoAds()
 
-This method starts the video ad on top of the game. The game should pause at this time and all sound effects should be stopped for the ad to play
+This method starts the video ad on top of the game. The game should pause at this time and all sound effects should be stopped for the ad to play.
 
 
 ```
@@ -220,15 +220,15 @@ if (typeof gameManager !== 'undefined' &&
     typeof gameManager.onShowRewardedVideoAds === 'function'
 ) {
     try {
-        gameManager.onShowRewardedVideoAds('rewardLife')
+        gameManager.onShowRewardedVideoAds('rewardLife', null)
     } catch (e) {
         gameManager.onError(e.stack.toString())
     }
 }
 ```
 
-The parameter that is passed to this function is a String. 
-Since this method is asynchronous, once the ad is played or the ad is quitted (by clicking on close icon on the ad screen), the App emits an event to the game
+The first parameter that is passed to this function is a String. The second parameter with value `null` is mandatory.
+Since this method is asynchronous, once the ad is played or the ad is quitted (by clicking on close icon on the ad screen), the App emits an event to the game.
 
 ```
 cc.game.emit('onAdPlayed')
