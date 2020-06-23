@@ -294,11 +294,13 @@ if (typeof gameManager !== 'undefined') {
 
 ### Base Analytics Events
 
-| Event Name    	| Parameters 	| Possible Values 	| Description 	|
-|---------------	|------------	|-----------------	|-------------	|
-| gameStart     	| userId     	|                 	|             	|
-| On Game Start 	| gameId     	|                 	|             	|
-|               	| roomId     	|                 	|             	|
+| Event Name    	| Parameters 	| Possible Values             	| Description                                                                                            	|
+|---------------	|------------	|-----------------------------	|--------------------------------------------------------------------------------------------------------	|
+| gameStart     	| userId     	| N/A                         	| Received from onGameInit()                                                                             	|
+| On Game Start 	| gameId     	| N/A                         	| Received from onGameInit()                                                                             	|
+|               	| roomId     	| N/A                         	| Received from onGameInit()                                                                             	|
+|               	| startType  	| “first” / “new” / “restart” 	| 1. first - First Session -> onGameInit().isFirstOpen 2. new - Returning user 3. restart - Restart Game 	|
+|               	|            	|                             	|                                                                                                        	|
 
 ### Game Manager Library SDK
 
