@@ -271,7 +271,7 @@ This will call the game method (onAdPlayed in the above example).
 
 ### gameManager.onGameOver()
 
-This function is used when the game is over and needs to be closed. The game needs to send parameters like score, highScore etc.
+This function is used when the game is over and needs to be closed. The game needs to send parameters like score, highScore etc. The parameters score and highScore need to be integers.
 
 ```
 if (typeof gameManager !== 'undefined') {
@@ -279,9 +279,9 @@ if (typeof gameManager !== 'undefined') {
         gameId: String(cc.sys.localStorage.getItem('JuegoJumpgameId')),
         roomId: String(cc.sys.localStorage.getItem('JuegoJumproomId')),
         userId: String(cc.sys.localStorage.getItem('JuegoJumpgameId')),
-        score: String(this.totalScore),
-        highScore: String(highScore),
-        info: encryption.getInfo(this.totalScore, this.gameplayTimeInSecond, this.currentRevives)
+        score: this.totalScore,
+        highScore: highScore,
+        info: encryption.getInfo(this.totalScore, this.gameplayTimeInSecond, reviveCount)
     }
     try {
         var score = JSON.stringify(obj)
