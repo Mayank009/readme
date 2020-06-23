@@ -292,6 +292,14 @@ if (typeof gameManager !== 'undefined') {
 }
 ```
 
+### Base Analytics Events
+
+| Event Name    	| Parameters 	| Possible Values 	| Description 	|
+|---------------	|------------	|-----------------	|-------------	|
+| gameStart     	| userId     	|                 	|             	|
+| On Game Start 	| gameId     	|                 	|             	|
+|               	| roomId     	|                 	|             	|
+
 ### Game Manager Library SDK
 
 This library would actually facilitate all the common functionalities required across all games. For start, the current version would contain the following functionalities:
