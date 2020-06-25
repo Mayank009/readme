@@ -53,9 +53,9 @@ Currently the returned object has the following fields:
 
 ```
 var config = {
-   userId: "1",
-   gameId: "2",
-   roomId: "3",
+   userID: "1",
+   gameID: "2",
+   roomID: "3",
    highestScore: 90,
    lastLevel: 0,
    gameMode: "score", // "score" or "win"
@@ -276,9 +276,9 @@ This function is used when the game is over and needs to be closed. The game nee
 ```
 if (typeof gameManager !== 'undefined') {
     var obj = {
-        gameId: String(cc.sys.localStorage.getItem('JuegoJumpgameId')),
-        roomId: String(cc.sys.localStorage.getItem('JuegoJumproomId')),
-        userId: String(cc.sys.localStorage.getItem('JuegoJumpgameId')),
+        gameID: String(cc.sys.localStorage.getItem('JuegoJumpgameId')),
+        roomID: String(cc.sys.localStorage.getItem('JuegoJumproomId')),
+        userID: String(cc.sys.localStorage.getItem('JuegoJumpgameId')),
         score: this.score,
         highScore: highScore,
         info: encryption.getInfo(this.totalScore, this.gameplayTimeInSecond, reviveCount)
@@ -296,9 +296,9 @@ if (typeof gameManager !== 'undefined') {
 
 | Event Name                      	| Parameters   	| Possible Values             	| Description                                                                                       	|
 |---------------------------------	|--------------	|-----------------------------	|---------------------------------------------------------------------------------------------------	|
-| gameStart                       	| userId       	| N/A                         	| Received from onGameInit()                                                                        	|
-| On Game Start                   	| gameId       	| N/A                         	| Received from onGameInit()                                                                        	|
-|                                 	| roomId       	| N/A                         	| Received from onGameInit()                                                                        	|
+| gameStart                       	| userID       	| N/A                         	| Received from onGameInit()                                                                        	|
+| On Game Start                   	| gameID       	| N/A                         	| Received from onGameInit()                                                                        	|
+|                                 	| roomID       	| N/A                         	| Received from onGameInit()                                                                        	|
 |                                 	| startType    	| “first” / “new” / “restart” 	| first - First Session -> onGameInit().isFirstOpen / new - Returning user / restart - Restart Game 	|
 |                                 	|              	|                             	|                                                                                                   	|
 | gamePause                       	| userID       	| N/A                         	| Received from onGameInit()                                                                        	|
