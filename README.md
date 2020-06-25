@@ -33,14 +33,14 @@ Let’s go through each of these methods:
 ### gameManager.onGameInit()
 
 This function returns few common parameters used across all games like:
-roomId, userId, gameId, highestScore, gameMode, isFirstOpen
+roomID, userID, gameID, highestScore, gameMode, isFirstOpen
 
 ```
 try {
     if (typeof gameManager !== 'undefined') {
         const gameConfigString = gameManager.onGameInit()
         const config = JSON.parse(gameConfigString)
-        const {userId, gameId, roomId, highestScore, gameMode, isFirstOpen} = config
+        const {userID, gameID, roomID, highestScore, gameMode, isFirstOpen} = config
     }
 } catch (e) {
     console.log("Error Parsing Config")
